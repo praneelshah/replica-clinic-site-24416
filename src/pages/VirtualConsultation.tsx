@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Smartphone, Users, Utensils, Upload, CheckCircle } from "lucide-react";
+import virtualHero from "@/assets/virtual-consultation-hero.jpg";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const VirtualConsultation = () => {
   const { toast } = useToast();
@@ -58,39 +60,51 @@ const VirtualConsultation = () => {
 
   return (
     <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-b from-secondary to-background">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
-            Virtual Orthodontic Consultation
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Get expert orthodontic advice from the comfort of your home. All you need is a
-            friend, a smartphone, and 2 spoons!
-          </p>
+      {/* Hero Section with Image */}
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${virtualHero})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>
+        
+        <AnimatedSection className="relative z-10 container mx-auto px-4 text-center text-white">
+          <h1 className="text-5xl md:text-7xl font-serif font-light mb-6 tracking-wide">
+            Virtual Consultation
+          </h1>
+          <div className="h-px w-24 bg-accent mx-auto my-6"></div>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto font-light opacity-90">
+            Expert orthodontic advice from home—just bring a friend, smartphone & 2 spoons
+          </p>
+        </AnimatedSection>
       </section>
 
       {/* Steps Section */}
-      <section className="py-16">
+      <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-serif font-bold text-center mb-12">
-            How It Works
-          </h2>
+          <AnimatedSection>
+            <h2 className="text-4xl font-serif font-light text-center mb-12">
+              How It Works
+            </h2>
+          </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
             {steps.map((step, index) => (
-              <Card key={index} className="p-6 text-center border-0 shadow-lg">
+              <AnimatedSection key={index} delay={index * 100}>
+                <Card className="p-6 text-center border-0 shadow-2xl bg-background hover:shadow-[var(--shadow-elegant)] transition-all duration-500">
                 <div className="w-16 h-16 mx-auto mb-4 bg-accent rounded-full flex items-center justify-center">
                   <step.icon className="w-8 h-8 text-accent-foreground" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{step.title}</h3>
                 <p className="text-muted-foreground">{step.description}</p>
               </Card>
+              </AnimatedSection>
             ))}
           </div>
 
           {/* Photo Instructions */}
-          <Card className="p-8 bg-secondary border-0 mb-12">
+          <AnimatedSection>
+            <Card className="p-8 bg-background border-0 mb-12 shadow-2xl">
             <h3 className="text-2xl font-serif font-bold mb-6 text-center">
               Photos We Need
             </h3>
@@ -101,11 +115,13 @@ const VirtualConsultation = () => {
                   <span>{instruction}</span>
                 </div>
               ))}
-            </div>
-          </Card>
+              </div>
+            </Card>
+          </AnimatedSection>
 
           {/* Consultation Form */}
-          <Card className="p-8 max-w-2xl mx-auto border-0 shadow-lg">
+          <AnimatedSection>
+            <Card className="p-8 max-w-2xl mx-auto border-0 shadow-2xl bg-background">
             <h2 className="text-3xl font-serif font-bold mb-6 text-center">
               Request Your Virtual Consultation
             </h2>
@@ -166,18 +182,24 @@ const VirtualConsultation = () => {
                 <Input type="file" multiple accept="image/*" className="max-w-xs mx-auto" />
               </div>
 
-              <Button type="submit" size="lg" className="w-full">
-                Submit Virtual Consultation Request
-              </Button>
-            </form>
-          </Card>
+                <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                  Submit Virtual Consultation Request
+                </Button>
+              </form>
+            </Card>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-serif font-bold mb-6">
+      <AnimatedSection>
+        <section className="py-16 bg-primary text-primary-foreground relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+          </div>
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h2 className="text-4xl font-serif font-light mb-6">
             Why Choose Virtual Consultation?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -202,13 +224,14 @@ const VirtualConsultation = () => {
             ))}
           </div>
           <div className="mt-8">
-            <p className="text-lg mb-4">Prefer to talk directly?</p>
-            <Button size="lg" variant="outline" asChild className="bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-primary">
+            <p className="text-lg mb-4 font-light opacity-90">Prefer to talk directly?</p>
+            <Button size="lg" variant="outline" asChild className="bg-transparent backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-primary transition-all duration-300">
               <a href="tel:8168803900">Call (816) 880-3900</a>
             </Button>
           </div>
         </div>
-      </section>
+        </section>
+      </AnimatedSection>
     </div>
   );
 };

@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import contactHero from "@/assets/contact-hero.jpg";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -53,25 +55,33 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-b from-secondary to-background">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
+      {/* Hero Section with Image */}
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${contactHero})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        </div>
+        
+        <AnimatedSection className="relative z-10 container mx-auto px-4 text-center text-white">
+          <h1 className="text-5xl md:text-7xl font-serif font-light mb-6 tracking-wide">
             Contact Us
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            We're here to answer your questions and schedule your appointment. Reach out to us
-            today and take the first step toward your healthier smile.
+          <div className="h-px w-24 bg-accent mx-auto my-6"></div>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto font-light opacity-90">
+            We're here to answer your questions and schedule your appointment
           </p>
-        </div>
+        </AnimatedSection>
       </section>
 
-      <section className="py-16">
+      <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             {/* Contact Form */}
-            <Card className="p-8 border-0 shadow-lg">
-              <h2 className="text-3xl font-serif font-bold mb-6">Send Us a Message</h2>
+            <AnimatedSection>
+              <Card className="p-8 border-0 shadow-2xl bg-background">
+                <h2 className="text-3xl font-serif font-bold mb-6">Send Us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="name">Full Name *</Label>
@@ -120,39 +130,43 @@ const Contact = () => {
                   />
                 </div>
 
-                <Button type="submit" size="lg" className="w-full">
+                <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                   Send Message
                 </Button>
               </form>
             </Card>
+            </AnimatedSection>
 
             {/* Contact Information */}
             <div className="space-y-8">
               {contactInfo.map((info, index) => (
-                <Card key={index} className="p-6 border-0 shadow-lg">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
-                      <info.icon className="w-6 h-6 text-accent-foreground" />
+                <AnimatedSection key={index} delay={index * 100}>
+                  <Card className="p-6 border-0 shadow-2xl bg-background hover:shadow-[var(--shadow-elegant)] transition-all duration-500">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                        <info.icon className="w-6 h-6 text-accent-foreground" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-2">{info.title}</h3>
+                        {info.link ? (
+                          <a
+                            href={info.link}
+                            className="text-muted-foreground hover:text-primary transition-colors whitespace-pre-line font-medium"
+                          >
+                            {info.content}
+                          </a>
+                        ) : (
+                          <p className="text-muted-foreground whitespace-pre-line">{info.content}</p>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-bold mb-2">{info.title}</h3>
-                      {info.link ? (
-                        <a
-                          href={info.link}
-                          className="text-muted-foreground hover:text-accent transition-colors whitespace-pre-line"
-                        >
-                          {info.content}
-                        </a>
-                      ) : (
-                        <p className="text-muted-foreground whitespace-pre-line">{info.content}</p>
-                      )}
-                    </div>
-                  </div>
-                </Card>
+                  </Card>
+                </AnimatedSection>
               ))}
 
               {/* Office Hours */}
-              <Card className="p-6 border-0 shadow-lg">
+              <AnimatedSection delay={300}>
+                <Card className="p-6 border-0 shadow-2xl bg-background">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
                     <Clock className="w-6 h-6 text-accent-foreground" />
@@ -168,21 +182,25 @@ const Contact = () => {
                       ))}
                     </div>
                   </div>
-                </div>
-              </Card>
+                  </div>
+                </Card>
+              </AnimatedSection>
 
-              <Card className="p-6 border-0 shadow-lg bg-secondary">
+              <AnimatedSection delay={400}>
+                <Card className="p-6 border-0 shadow-2xl bg-background/80 backdrop-blur-sm">
                 <h3 className="text-xl font-bold mb-2">Se Habla Español</h3>
                 <p className="text-muted-foreground">
                   We have Spanish-speaking staff available to assist you with all your dental
                   needs.
                 </p>
-              </Card>
+                </Card>
+              </AnimatedSection>
             </div>
           </div>
 
           {/* Map Section */}
-          <Card className="p-8 border-0 shadow-lg bg-secondary text-center">
+          <AnimatedSection>
+            <Card className="p-8 border-0 shadow-2xl bg-background text-center">
             <h2 className="text-3xl font-serif font-bold mb-4">Visit Our Office</h2>
             <p className="text-muted-foreground mb-6">
               Conveniently located in Independence, MO with ample parking available
@@ -200,23 +218,30 @@ const Contact = () => {
               />
             </div>
           </Card>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-serif font-bold mb-6">
+      <AnimatedSection>
+        <section className="py-16 bg-primary text-primary-foreground relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+          </div>
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h2 className="text-4xl font-serif font-light mb-6">
             Ready to Schedule Your Appointment?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 max-w-2xl mx-auto font-light opacity-90">
             Same day and weekend appointments available. Call us now!
           </p>
-          <Button size="lg" variant="outline" asChild className="bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-primary">
+          <Button size="lg" variant="outline" asChild className="bg-transparent backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-primary transition-all duration-300">
             <a href="tel:8168803900">Call (816) 880-3900</a>
           </Button>
         </div>
-      </section>
+        </section>
+      </AnimatedSection>
     </div>
   );
 };

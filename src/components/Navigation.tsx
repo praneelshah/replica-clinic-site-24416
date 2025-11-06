@@ -29,15 +29,15 @@ const Navigation = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      scrolled ? 'bg-background/98 backdrop-blur-lg shadow-xl border-b border-border/50' : 'bg-gradient-to-b from-black/60 to-transparent'
+      scrolled ? 'bg-background/98 backdrop-blur-lg shadow-xl border-b border-border/50' : 'bg-background/40 backdrop-blur-md border-b border-white/10'
     }`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center">
-            <h1 className={`text-2xl font-serif font-bold tracking-wide transition-colors ${
-              scrolled ? 'text-foreground' : 'text-white drop-shadow-lg'
+            <h1 className={`text-xl md:text-2xl font-serif font-bold tracking-wide transition-all duration-300 ${
+              scrolled ? 'text-foreground' : 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]'
             }`}>
-              IMAGINE DENTAL <span className="text-accent">&</span> ORTHODONTICS
+              IMAGINE DENTAL <span className="text-accent drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">&</span> ORTHODONTICS
             </h1>
           </Link>
 
@@ -67,33 +67,34 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden p-2 transition-colors ${scrolled ? 'text-foreground' : 'text-white drop-shadow-lg'}`}
+            className={`lg:hidden p-2 transition-all duration-300 ${scrolled ? 'text-foreground' : 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]'} hover:scale-110`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden pb-4 space-y-2 bg-background/98 backdrop-blur-lg rounded-b-lg shadow-xl">
-            {navItems.map((item) => (
+          <div className="lg:hidden pb-4 space-y-2 bg-background/98 backdrop-blur-lg rounded-b-lg shadow-xl animate-in slide-in-from-top-4 duration-300">
+            {navItems.map((item, index) => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsOpen(false)}
-                className={`block px-4 py-3 text-sm font-medium transition-all ${
+                className={`block px-4 py-3 text-sm font-medium transition-all duration-300 animate-in slide-in-from-right-4 ${
                   isActive(item.path)
                     ? "text-primary bg-secondary font-semibold"
-                    : "text-foreground/80 hover:text-primary hover:bg-secondary/50"
+                    : "text-foreground hover:text-primary hover:bg-secondary/50 hover:translate-x-1"
                 }`}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 {item.label}
               </Link>
             ))}
-            <div className="px-4 pt-2">
-              <Button variant="default" size="sm" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+            <div className="px-4 pt-2 animate-in fade-in duration-500" style={{ animationDelay: '300ms' }}>
+              <Button variant="default" size="sm" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground transition-all duration-300 hover:scale-105 hover:shadow-lg">
                 <a href="tel:8168803900">Call (816) 880-3900</a>
               </Button>
             </div>
